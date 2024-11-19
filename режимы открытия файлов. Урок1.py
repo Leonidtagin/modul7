@@ -9,24 +9,23 @@ class Product:
         return prods_str
 
 class Shop:
-    def __init__(self):
-        self.__file_name = open('products.txt', 'a')
-        self.__file_name.close()
+    __file_name = 'products.txt'
 
     def get_products(self):
-        get_file = open('products.txt', 'r')
-        name_prod = get_file.read()
-        get_file.close()
-        return name_prod
+        file = open(self.__file_name, 'r+')
+        prod_str = file.read()
+        file.close()
+        return prod_str
 
     def add(self, *products):
-        for product in products:
-            if str(products) not in self.get_products():
-                file = open('products.txt', 'a+')
-                file.write(f'{str(product)}\n')
+        get_file = self.get_products()
+        for i in products:
+            if self.get_products().find(f'{i.name},') == -1:
+                file = open(self.__file_name, 'a')
+                file.write(f'{i}\n')
                 file.close()
             else:
-                print(f'Продукт {product} уже есть в магазине')
+                print(f'Продукт {i.name} уже есть в магазине')
 
 
 s1 = Shop()
